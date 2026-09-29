@@ -1,0 +1,9 @@
+metric,value,unit
+Customers ever acquired,8000.0,count
+Active customers at 2026-08-31,6208.0,count
+Total churned customers,1792.0,count
+Current MRR,732430.75,USD
+Current ARR,8789169.0,USD
+Current ARPA,117.98,USD/month
+Overall observed churn share,0.224,rate
+August 2026 logo churn rate,0.0197,rate

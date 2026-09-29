@@ -1,0 +1,15 @@
+{
+  "name": "Northstar SaaS Portfolio",
+  "dataColors": ["#2563EB", "#0F766E", "#7C3AED", "#D97706", "#DC2626", "#475569"],
+  "background": "#F8FAFC",
+  "foreground": "#0F172A",
+  "tableAccent": "#2563EB",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "title": [{"fontFamily":"Segoe UI","fontSize":12,"color":{"solid":{"color":"#0F172A"}}}],
+        "labels": [{"fontFamily":"Segoe UI","fontSize":10}]
+      }
+    }
+  }
+}

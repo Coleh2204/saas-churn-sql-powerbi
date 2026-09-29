@@ -1,0 +1,13 @@
+Date =
+VAR StartDate = DATE(2024,1,1)
+VAR EndDate = DATE(2026,8,31)
+RETURN
+ADDCOLUMNS(
+    CALENDAR(StartDate, EndDate),
+    "Year", YEAR([Date]),
+    "Month Number", MONTH([Date]),
+    "Month", FORMAT([Date], "MMM"),
+    "Year Month", FORMAT([Date], "YYYY-MM"),
+    "Year Month Sort", YEAR([Date]) * 100 + MONTH([Date]),
+    "Quarter", "Q" & FORMAT([Date], "Q")
+)

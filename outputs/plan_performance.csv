@@ -1,0 +1,5 @@
+plan_name,customers,churned,avg_mrr,churn_share
+Business,1720,361,187.25,0.2099
+Enterprise,694,116,455.0,0.1671
+Pro,2608,599,75.81,0.2297
+Starter,2978,716,28.05,0.2404

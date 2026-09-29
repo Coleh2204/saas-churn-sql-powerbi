@@ -1,0 +1,5 @@
+usage_trend_band,customers,churn_rate
+Severe decline,1254,0.8413
+Moderate decline,1168,0.2243
+Stable,3802,0.08
+Growing,1776,0.0963

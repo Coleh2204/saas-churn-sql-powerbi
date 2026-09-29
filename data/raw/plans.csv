@@ -1,0 +1,5 @@
+plan_id,plan_name,monthly_price,included_seats,plan_description
+P1,Starter,29.0,3,Individuals and very small teams
+P2,Pro,79.0,10,Growing small businesses
+P3,Business,199.0,30,Mid-market teams
+P4,Enterprise,499.0,100,Large organizations

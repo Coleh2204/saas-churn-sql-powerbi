@@ -1,0 +1,94 @@
+-- Core snapshot measures
+Active Customers =
+CALCULATE(
+    DISTINCTCOUNT(Subscriptions[customer_id]),
+    Subscriptions[status] = "Active"
+)
+
+Churned Customers =
+CALCULATE(
+    DISTINCTCOUNT(Subscriptions[customer_id]),
+    Subscriptions[status] = "Churned"
+)
+
+Customers Ever Acquired =
+DISTINCTCOUNT(Subscriptions[customer_id])
+
+Current MRR =
+CALCULATE(
+    SUM(Subscriptions[monthly_recurring_revenue]),
+    Subscriptions[status] = "Active"
+)
+
+Current ARR =
+[Current MRR] * 12
+
+Current ARPA =
+DIVIDE([Current MRR], [Active Customers])
+
+Observed Churn Share =
+DIVIDE([Churned Customers], [Customers Ever Acquired])
+
+-- Use vw_monthly_business_metrics for historical trend cards/charts
+Latest Logo Churn Rate =
+VAR LatestMonth = MAX(vw_monthly_business_metrics[month_start])
+RETURN
+CALCULATE(
+    MAX(vw_monthly_business_metrics[logo_churn_rate]),
+    vw_monthly_business_metrics[month_start] = LatestMonth
+)
+
+Latest MRR =
+VAR LatestMonth = MAX(vw_monthly_business_metrics[month_start])
+RETURN
+CALCULATE(
+    MAX(vw_monthly_business_metrics[mrr_end]),
+    vw_monthly_business_metrics[month_start] = LatestMonth
+)
+
+MRR Previous Month =
+VAR LatestMonth = MAX(vw_monthly_business_metrics[month_start])
+VAR PriorMonth = EDATE(LatestMonth, -1)
+RETURN
+CALCULATE(
+    MAX(vw_monthly_business_metrics[mrr_end]),
+    vw_monthly_business_metrics[month_start] = PriorMonth
+)
+
+MRR MoM % =
+DIVIDE([Latest MRR] - [MRR Previous Month], [MRR Previous Month])
+
+-- Customer-health measures
+Customers With Failed Payment =
+CALCULATE(
+    DISTINCTCOUNT(vw_customer_360[customer_id]),
+    vw_customer_360[failed_payments_last_90d] > 0
+)
+
+Customers With Severe Usage Decline =
+CALCULATE(
+    DISTINCTCOUNT(vw_customer_360[customer_id]),
+    vw_customer_360[usage_change_last_3m] <= -0.40
+)
+
+Avg Tickets Last 90d =
+AVERAGE(vw_customer_360[tickets_last_90d])
+
+Avg Usage Change 3m =
+AVERAGE(vw_customer_360[usage_change_last_3m])
+
+-- Support and billing
+Failed Payment Attempts =
+CALCULATE(
+    COUNTROWS(Payments),
+    Payments[payment_status] = "Failed"
+)
+
+Payment Failure Rate =
+DIVIDE([Failed Payment Attempts], COUNTROWS(Payments))
+
+Average CSAT =
+AVERAGE(Support_Tickets[csat_score])
+
+Average Resolution Hours =
+AVERAGE(Support_Tickets[resolution_hours])
